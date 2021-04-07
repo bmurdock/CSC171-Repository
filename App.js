@@ -1,5 +1,5 @@
 import React, { Component as RC } from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TouchableWithoutFeedbackBase } from 'react-native';
 import { rando, pokeFetch, changeUnits } from './utility.js'
 
 //maximum ID of pokemon
@@ -18,6 +18,7 @@ export default class App extends RC {
       pokemonWeight: '',
       pokemonType1: '',
       pokemonType2: '',
+
     }
 
   }
@@ -28,7 +29,7 @@ export default class App extends RC {
     const pokemon = await pokeFetch('pokemon', rando(1, maxPoke))
 
     //log it
-    console.log('pokemon: ', pokemon)
+    //console.log('pokemon: ', pokemon)
 
     //set states to whatever the name of the pokeFetch returned
     this.setState({
@@ -65,7 +66,11 @@ export default class App extends RC {
 
   }
 
-
+  // create a method to pass the context into changeUnits
+  units = () =>
+  {
+    changeUnits(this)
+  }
 
 
   
@@ -90,7 +95,7 @@ export default class App extends RC {
         <Text style={pokemonStyles.statText}>{this.state.pokemonType1}{this.state.pokemonType2} </Text>
 
         {/* Change Units NONFUNCTIONAL */}
-        <Button title='Change Units' onPress={changeUnits}/>
+        <Button title='Change Units' onPress={this.units}/>
       
       </View>
     )

@@ -31,31 +31,36 @@ export const pokeFetch = (resource, options) => {
 let isMetric = true
 
 //change units
-export function changeUnits() {
+export function changeUnits(context) {
 
-  const pokemon = App.state.pokemon
+  // at this point, we have no idea what App is, so we should just pass the context
+
+  // there are probably better ways to do this, and we will get into them during class
+  const pokemon = context.state.pokemon;
+  console.log('isMetric: ', isMetric);
 
   if(isMetric == true) {
 
-   App.setState({
+    context.setState({
      pokemonHeight: pokemon.height / 3.048 + ' Feet',
      pokemonWeight: pokemon.weight / 4.356 + ' lbs',
    })
 
-   isMetric = false
 
   }
 
   if (isMetric == false) {
 
-   App.setState({
+    context.setState({
      pokemonHeight: pokemon.height / 10 + ' Meters',
      pokemonWeight: pokemon.weight / 10 + ' Kilograms',
    })
 
-   isMetric = true
 
   }
+
+  // this will toggle the value of isMetric
+  isMetric = (isMetric) ? false : true;
 
 }
 
